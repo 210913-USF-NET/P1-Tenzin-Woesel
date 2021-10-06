@@ -1,0 +1,30 @@
+1. Add Customer: 
+Customer
+Come up with some user interface that validates customer information based on model properties. 
+So the UI should ask the end user relevant information about the customer they’re creating, like the name, address, etc.
+
+2. Search For Customer:
+Customer
+Come up with some user interface that searches and gets customer information based on some search parameter.
+Note: Present appropriate messages if a customer is not found. Make sure the search parameter makes sense.
+
+3.  View Storefront Inventory:
+StoreFront, Product
+Come up with some user interface that searches and gets store front information based on some search parameter.
+Note: Present appropriate messages if a store front is not found. Make sure the search parameter makes sense.
+
+4. Place Order:
+StoreFront, Customer, Orders
+Come up with a user interface that takes in the customer who wants to place an order, which location would the order be placed on, and the finally, the list of items the customer would want to order from a certain store front.
+
+Note: that the UI should be able to find an existing customer and storefront to place the order. Furthermore, you should be able to present the products and quantity of those products available in the store the customer wants to order from. Moreover, you should be able to dictate which product and how much will be added to the order. And finally, you should be able to checkout multiple products and view the order details of the order you just placed.
+
+5. View Order History:
+Customer/Store Front
+Come up with some user interface that searches for a customer/store front and gets customer/store front order history based on some search parameter.
+Note: Present appropriate messages if a customer/store front is not found. Make sure the search parameter makes sense.
+
+6. Replenish Inventory:
+StoreFront
+Come up with some user interface that searches for a store front and gets its inventory information based on some search parameter. Also, to ask how much quantity will be added to existing inventory.
+Note: Present appropriate messages if a store front is not found. Make sure the search parameter makes sense.

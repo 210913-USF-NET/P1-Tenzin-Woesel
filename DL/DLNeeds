@@ -1,0 +1,33 @@
+1. Add Customer: 
+Customer
+Write data storage specific logic to add a customer to some form of repository. Repo could be a file, a static collection, a DB, etc.
+Hint: Use LINQ
+
+2. Search For Customer:
+Customer
+Write data storage specific logic to search a customer from some form of repository. Repo could be a file, a static collection, a DB, etc.
+Hint: Use LINQ
+
+3.  View Storefront Inventory:
+Write data storage specific logic to search a store front and get its inventory from some form of repository. Repo could be a file, a static collection, a DB, etc.
+Hint: Use LINQ
+Optional: if no inventory exists or all the storefront is empty. Display a meaningful message and not just an empty space.
+
+4. Place Order:
+StoreFront, Customer, Orders
+
+Write data storage specific logic to search/get a customer/store front, add an order, update the inventory of the store front the order is placed on to some form of repository. Repo could be a file, a static collection, a DB, etc.
+Hint: Use LINQ
+
+5. View Order History:
+Customer/Store Front
+
+Write data storage specific logic to search a customer/ store front and get its order history from some form of repository. Repo could be a file, a static collection, a DB, etc.
+Hint: Use LINQ
+
+6. Replenish Inventory:
+StoreFront
+
+Write data storage specific logic to search a store front and get its inventory from some form of repository. Repo could be a file, a static collection, a DB, etc.
+Hint: Use LINQ
+Note: Inventory values should NEVER be negative.
