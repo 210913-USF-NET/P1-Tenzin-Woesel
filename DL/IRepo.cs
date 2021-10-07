@@ -72,7 +72,7 @@ namespace DL
         List<LineItems> GetLineItems();
         List<StoreFront> GetAllStores();
         List<Inventory> GettAllInventories();
-        void DeleteCustomer(string email);
+        void DeleteCustomer(string name);
 
         void DeleteStore(int storeId);
         Customer UpdateCustomer(Customer customerToUpdate);

@@ -44,17 +44,23 @@ namespace WebUI.Controllers
         {
             return View();
         }
-        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginVM model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var result = _bl.GetCustomer(model.Name);
+                    string name = model.Name;
+                    if(name == "")
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid Login Attempt. Please try again.");
+                        return View("Index");
+                    }
+                    var result = _bl.GetCustomer(name);
                     if (result != null)
                     {
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction(nameof(Privacy));
                     }
                     ModelState.AddModelError(string.Empty, "Invalid Login Attempt. Please try again.");
                 }
@@ -62,7 +68,7 @@ namespace WebUI.Controllers
             }
             catch
             {
-                return View();
+                return View("Index");
             }
         }
 

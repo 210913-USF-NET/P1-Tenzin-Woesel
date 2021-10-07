@@ -32,10 +32,10 @@ namespace DL
             return new Order()
             {
                 Id = orderToAdd.Id,
-                Total = (decimal)orderToAdd.Total,
+                Total = orderToAdd.Total,
                 CustomerId = orderToAdd.CustomerId,
                 StoreFrontId = orderToAdd.StoreFrontId,
-                OrderDate = (DateTime)orderToAdd.OrderDate
+                OrderDate = orderToAdd.OrderDate
             };
         }
 
@@ -65,7 +65,7 @@ namespace DL
             {
                 Id = productToAdd.Id,
                 Name = productToAdd.Name,
-                Price = (decimal)productToAdd.Price,
+                Price = productToAdd.Price,
                 Description = productToAdd.Description,
                 Category = productToAdd.Category
             };
@@ -158,7 +158,7 @@ namespace DL
             {
                 Id = product.Id,
                 Name = product.Name,
-                Price = (decimal)product.Price,
+                Price = product.Price,
                 Description = product.Description,
                 Category = product.Category
 
@@ -181,8 +181,8 @@ namespace DL
             return _context.Orders.Select(order => new Order()
             {
                 Id = order.Id,
-                Total = (decimal)order.Total,
-                OrderDate = (DateTime)order.OrderDate,
+                Total = order.Total,
+                OrderDate = order.OrderDate,
                 CustomerId = order.CustomerId,
                 StoreFrontId = order.StoreFrontId
             }).ToList();
@@ -193,7 +193,7 @@ namespace DL
             return _context.LineItems.Select(items => new LineItems()
             {
                 Id = items.Id,
-                Quantity = (int)items.Quantity
+                Quantity = items.Quantity
             }).ToList();
         }
 
@@ -202,15 +202,15 @@ namespace DL
         {
             return _context.Inventories.Include("Product").Select(inventory => new Inventory()
             {
-                Quantity = (int)inventory.Quantity,
-                ProductID = (int)inventory.ProductID,
-                StoreID = (int)inventory.StoreID,
+                Quantity = inventory.Quantity,
+                ProductID = inventory.ProductID,
+                StoreID = inventory.StoreID,
                 Product = new Product
                 {
                     Id = inventory.Product.Id,
                     Name = inventory.Product.Name,
                     Description = inventory.Product.Description,
-                    Price = (decimal)inventory.Product.Price,
+                    Price = inventory.Product.Price,
                     Category = inventory.Product.Category
                 }
             }).ToList();
@@ -236,7 +236,7 @@ namespace DL
             {
                 Id = updateProduct.Id,
                 Name = updateProduct.Name,
-                Price = (decimal)updateProduct.Price,
+                Price = updateProduct.Price,
                 Description = updateProduct.Description,
                 Category = updateProduct.Category
             };
@@ -290,9 +290,9 @@ namespace DL
             return _context.Inventories.Where(inv => inv.StoreID == storeId).Select(newInv => new Inventory()
             {
                 Id = newInv.Id,
-                StoreID = (int)newInv.StoreID,
-                Quantity = (int)newInv.Quantity,
-                ProductID = (int)newInv.ProductID
+                StoreID = newInv.StoreID,
+                Quantity = newInv.Quantity,
+                ProductID = newInv.ProductID
             }).ToList();
         }
 
@@ -304,7 +304,7 @@ namespace DL
             {
                 Id = productById.Id,
                 Name = productById.Name,
-                Price = (decimal)productById.Price,
+                Price = productById.Price,
                 Description = productById.Description,
                 Category = productById.Category
             };
@@ -327,8 +327,8 @@ namespace DL
             return new Inventory()
             {
                 // Id = updateInventory.Id,
-                StoreID = (int)updateInventory.StoreID,
-                ProductID = (int)updateInventory.ProductID
+                StoreID = updateInventory.StoreID,
+                ProductID = updateInventory.ProductID
             };
         }
 
@@ -350,7 +350,7 @@ namespace DL
             return new Order()
             {
                 Id = updateOrder.Id,
-                Total = (decimal)updateOrder.Total,
+                Total = updateOrder.Total,
                 CustomerId = updateOrder.CustomerId,
                 StoreFrontId = updateOrder.StoreFrontId,
                 OrderDate = orderToUpdate.OrderDate
