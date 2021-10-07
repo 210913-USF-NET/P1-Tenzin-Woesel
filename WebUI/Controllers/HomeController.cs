@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Models;
 using StoreBL;
@@ -6,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebUI.Models;
 
@@ -39,32 +43,35 @@ namespace WebUI.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpGet]
-        public ActionResult Login()
+        [HttpGet("Login")]
+        public ActionResult Login(string returnUrl)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
+        [HttpPost("Login")]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginVM model)
+        public async Task<ActionResult> Login(LoginVM model, string returnUrl)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     string name = model.Name;
-                    if(name == "")
-                    {
-                        ModelState.AddModelError(string.Empty, "Invalid Login Attempt. Please try again.");
-                        return View("Index");
-                    }
                     var result = _bl.GetCustomer(name);
                     if (result != null)
                     {
-                        return RedirectToAction(nameof(Privacy));
+                        var claims = new List<Claim>();
+                        claims.Add(new Claim("username", name));
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                        await HttpContext.SignInAsync(claimsPrincipal);
+                        return Redirect(returnUrl);
                     }
-                    ModelState.AddModelError(string.Empty, "Invalid Login Attempt. Please try again.");
+                    ModelState.AddModelError(string.Empty, "Invalid Login Attempt. No such user found. Please try again.");
+                    
                 }
-                return View(model);
+                return View("login");
             }
             catch
             {
@@ -102,6 +109,12 @@ namespace WebUI.Controllers
             {
                 return View("Index");
             }
+        }
+        [Authorize]
+        public async Task<ActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return Redirect("/");
         }
     }
 }

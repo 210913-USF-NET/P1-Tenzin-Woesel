@@ -75,10 +75,10 @@ namespace StoreBL
             return _repo.AddStore(storeFront);
         }
 
-        public decimal CalculateTotal(decimal price, int quantityNeeded)
+        public decimal CalculateTotal(decimal price, int moreItems)
         {
             decimal total = 0;
-            total += quantityNeeded;
+            total += moreItems;
             return total;
         }
 

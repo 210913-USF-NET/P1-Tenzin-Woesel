@@ -11,7 +11,7 @@ namespace WebUI.Controllers
 {
     public class InventoryController : Controller
     {
-        private IBL _bl;
+        private readonly IBL _bl;
         public InventoryController(IBL bl)
         {
             _bl = bl;

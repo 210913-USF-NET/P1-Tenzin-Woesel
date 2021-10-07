@@ -7,7 +7,6 @@ namespace Models
 {
     public class Order
     {
-        // public Order(){}
         public int Id { get; set; }
 
         public int CustomerId { get; set; }
@@ -37,12 +36,6 @@ namespace Models
 
         public override string ToString()
         {
-            // string temp = $"Total Price: {this.Total}\n";
-            // foreach (LineItems item in LineItems)
-            // {
-            //     temp += $" Quantity : {item.Quantity}";
-            // }
-            // return temp;
             return $"Order Id: {this.Id}\nTotal Price: {this.Total}\nDate Ordered: {this.OrderDate}";
         }
 

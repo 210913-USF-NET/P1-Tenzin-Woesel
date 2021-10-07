@@ -12,6 +12,7 @@ using Models;
 using StoreBL;
 using DL;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebUI
 {
@@ -32,6 +33,8 @@ namespace WebUI
             services.AddScoped<IRepo, DBRepo>();
             services.AddScoped<IBL, BL>();
             services.AddRazorPages();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.LoginPath = "/Index");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
