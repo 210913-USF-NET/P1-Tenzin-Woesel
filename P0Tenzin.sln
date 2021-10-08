@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI", "WebUI\WebUI.csproj", "{E7BEFCBC-7CBB-463D-ACFB-115BF0C7BDAD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{D367372E-AD87-4ABF-AD08-15F2A5D4184B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{E7BEFCBC-7CBB-463D-ACFB-115BF0C7BDAD}.Release|x64.Build.0 = Release|Any CPU
 		{E7BEFCBC-7CBB-463D-ACFB-115BF0C7BDAD}.Release|x86.ActiveCfg = Release|Any CPU
 		{E7BEFCBC-7CBB-463D-ACFB-115BF0C7BDAD}.Release|x86.Build.0 = Release|Any CPU
+		{D367372E-AD87-4ABF-AD08-15F2A5D4184B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D367372E-AD87-4ABF-AD08-15F2A5D4184B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D367372E-AD87-4ABF-AD08-15F2A5D4184B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D367372E-AD87-4ABF-AD08-15F2A5D4184B}.Debug|x64.Build.0 = Debug|Any CPU
+		{D367372E-AD87-4ABF-AD08-15F2A5D4184B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D367372E-AD87-4ABF-AD08-15F2A5D4184B}.Debug|x86.Build.0 = Debug|Any CPU
+		{D367372E-AD87-4ABF-AD08-15F2A5D4184B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D367372E-AD87-4ABF-AD08-15F2A5D4184B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D367372E-AD87-4ABF-AD08-15F2A5D4184B}.Release|x64.ActiveCfg = Release|Any CPU
+		{D367372E-AD87-4ABF-AD08-15F2A5D4184B}.Release|x64.Build.0 = Release|Any CPU
+		{D367372E-AD87-4ABF-AD08-15F2A5D4184B}.Release|x86.ActiveCfg = Release|Any CPU
+		{D367372E-AD87-4ABF-AD08-15F2A5D4184B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
