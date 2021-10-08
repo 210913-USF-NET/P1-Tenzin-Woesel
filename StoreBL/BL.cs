@@ -138,6 +138,11 @@ namespace StoreBL
             _repo.DeleteStore(storeId);
         }
 
+        public Inventory AddInventory(Inventory inventoryToAdd)
+        {
+            return _repo.AddInventory(inventoryToAdd);
+        }
+
 
 
         // public List<LineItems> AddLineItems(List<LineItems> lineItems)

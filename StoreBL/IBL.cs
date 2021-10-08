@@ -14,6 +14,7 @@ namespace StoreBL
         Product AddProduct(Product product);
 
         LineItems AddLineItem(LineItems itemToAdd);
+        Inventory AddInventory(Inventory inventoryToAdd);
 
         // List<LineItems> AddLineItems(List<LineItems> lineItems);
         Customer GetCustomer(string name);

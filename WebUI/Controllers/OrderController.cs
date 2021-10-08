@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
+using StoreBL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,17 @@ namespace WebUI.Controllers
 {
     public class OrderController : Controller
     {
+        private readonly IBL _bl;
+
+        public OrderController(IBL bl)
+        {
+            _bl = bl;
+        }
         // GET: OrderController
         public ActionResult Index()
         {
-            return View();
+            List<Order> allOrders = _bl.GetAllOrders();
+            return View(allOrders);
         }
 
         // GET: OrderController/Details/5
@@ -22,8 +31,10 @@ namespace WebUI.Controllers
         }
 
         // GET: OrderController/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            List<Inventory> inventoryForStore = _bl.GetInventoriesByStoreId(id);
+            
             return View();
         }
 

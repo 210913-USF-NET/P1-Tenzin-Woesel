@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StoreBL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,20 @@ namespace WebUI.Controllers
 {
     public class LineItemController : Controller
     {
-        // GET: LineItemController
-        public ActionResult Index()
+        private readonly IBL _bl;
+        public LineItemController(IBL bl)
         {
+            _bl = bl;
+        }
+        // GET: LineItemController
+        /// <summary>
+        /// Get all LineItems to an order.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Index(int id)
+        {
+            _bl.GetLineItems();
             return View();
         }
 

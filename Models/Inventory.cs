@@ -10,6 +10,10 @@ namespace Models
 
         public Product Product{ get; set; }
         public Inventory() { }
+        public Inventory(int storeId) 
+        {
+            this.StoreID= storeId;
+        }
 
         public Inventory(int Id, int Quantity)
         {

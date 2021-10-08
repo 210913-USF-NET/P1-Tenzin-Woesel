@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using StoreBL;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace WebUI.Controllers
         public ActionResult Index(int id)
         {
             StoreVM store = new StoreVM(_bl.GetStoreById(id));
-            return View();
+            return View(store);
         }
 
         // GET: InventoryController/Details/5
@@ -35,19 +36,32 @@ namespace WebUI.Controllers
         }
 
         // GET: InventoryController/Create
-        public ActionResult Create()
+        public ActionResult Create(string storeId)
         {
-            return View();
+            int id = int.Parse(storeId);
+            ViewBag.Store = _bl.GetStoreById(id);
+            //ViewData["Store"] = _bl.GetStoreById(id);
+            
+            return View(new Inventory(id));
         }
 
         // POST: InventoryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Inventory inventory, int storeId)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    
+                    
+                    _bl.AddInventory(inventory);
+
+                    return RedirectToAction(nameof(Index), new {id = inventory.StoreID});
+
+                }
+                return View();
             }
             catch
             {

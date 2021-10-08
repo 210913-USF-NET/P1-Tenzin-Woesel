@@ -276,8 +276,6 @@ namespace DL
 
         public Inventory AddInventory(Inventory inventory)
         {
-            
-
             inventory = _context.Add(inventory).Entity;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
@@ -374,5 +372,6 @@ namespace DL
             _context.ChangeTracker.Clear();
         }
 
+       
     }
 }
