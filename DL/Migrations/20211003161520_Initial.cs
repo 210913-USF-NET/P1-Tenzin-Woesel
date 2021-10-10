@@ -71,7 +71,6 @@ namespace DL.Migrations
                     Quantity = table.Column<int>(type: "integer", nullable: false),
                     ProductID = table.Column<int>(type: "integer", nullable: false),
                     StoreID = table.Column<int>(type: "integer", nullable: false),
-                    StoreFrontId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -83,8 +82,8 @@ namespace DL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Inventories_StoreFronts_StoreFrontId",
-                        column: x => x.StoreFrontId,
+                        name: "FK_Inventories_StoreFronts_StoreId",
+                        column: x => x.StoreID,
                         principalTable: "StoreFronts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
+using StoreBL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,17 @@ namespace WebUI.Controllers
 {
     public class ProductController : Controller
     {
+        private readonly IBL _bl;
+
+        public ProductController(IBL bl)
+        {
+            _bl = bl;
+        }
         // GET: ProductController
         public ActionResult Index()
         {
-            return View();
+            List<Product> allProduct = _bl.GetAllProducts();
+            return View(allProduct);
         }
 
         // GET: ProductController/Details/5
@@ -30,11 +39,17 @@ namespace WebUI.Controllers
         // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Product product)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _bl.AddProduct(product);
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return View();
             }
             catch
             {
@@ -76,6 +91,7 @@ namespace WebUI.Controllers
         {
             try
             {
+                
                 return RedirectToAction(nameof(Index));
             }
             catch

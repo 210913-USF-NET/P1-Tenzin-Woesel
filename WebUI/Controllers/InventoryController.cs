@@ -25,8 +25,18 @@ namespace WebUI.Controllers
         /// <returns></returns>
         public ActionResult Index(int id)
         {
-            StoreVM store = new StoreVM(_bl.GetStoreById(id));
-            return View(store);
+            ViewData["Integer"] = id;
+            
+            List<Inventory> inventoryByStore = _bl.GetInventoriesByStoreId(id);
+            
+                foreach (var inventory in inventoryByStore)
+                {
+                    inventory.Product = _bl.GetProductById(inventory.ProductID);
+                }
+
+                
+            
+            return View(inventoryByStore);
         }
 
         // GET: InventoryController/Details/5
@@ -41,7 +51,7 @@ namespace WebUI.Controllers
             int id = int.Parse(storeId);
             ViewBag.Store = _bl.GetStoreById(id);
             //ViewData["Store"] = _bl.GetStoreById(id);
-            
+
             return View(new Inventory(id));
         }
 
@@ -54,11 +64,11 @@ namespace WebUI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
-                    
+
+
                     _bl.AddInventory(inventory);
 
-                    return RedirectToAction(nameof(Index), new {id = inventory.StoreID});
+                    return RedirectToAction(nameof(Index), new { id = inventory.StoreID });
 
                 }
                 return View();
@@ -103,6 +113,7 @@ namespace WebUI.Controllers
         {
             try
             {
+                _bl.DeleteInventory(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

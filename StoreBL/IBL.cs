@@ -18,6 +18,8 @@ namespace StoreBL
 
         // List<LineItems> AddLineItems(List<LineItems> lineItems);
         Customer GetCustomer(string name);
+
+        Product GetProductById(int productId);
         List<Inventory> GetInventoriesByStoreId(int storeId);
         Customer UpdateCustomer(Customer customerToUpdate);
         Product UpdateProduct(Product productToUpdate);
@@ -29,6 +31,10 @@ namespace StoreBL
         void DeleteCustomer(string email);
 
         void DeleteStore(int storeId);
+
+        void DeleteProduct(int productId);
+        void DeleteInventory(int inventoryId);
+
         List<Customer> SearchCustomer(string quertStr);
         List<Product> GetAllProducts();
 
@@ -44,6 +50,8 @@ namespace StoreBL
         int ReduceQuantity(int itemQuantity, int quantityNeeded);
 
         StoreFront GetStoreById(int storeId);
+        Inventory GetInventoryById(int inventoryId);
+
 
     }
 }

@@ -132,7 +132,10 @@ namespace StoreBL
         {
             return _repo.GetStoreById(storeId);
         }
-
+        public Product GetProductById(int productId)
+        {
+            return _repo.GetProductById(productId);
+        }
         public void DeleteStore(int storeId)
         {
             _repo.DeleteStore(storeId);
@@ -142,6 +145,22 @@ namespace StoreBL
         {
             return _repo.AddInventory(inventoryToAdd);
         }
+
+        public void DeleteProduct(int productId)
+        {
+            _repo.DeleteProduct(productId);
+        }
+
+        public void DeleteInventory(int inventoryId)
+        {
+            _repo.DeleteInventory(inventoryId);
+        }
+
+        public Inventory GetInventoryById(int inventoryId)
+        {
+            return _repo.GetInventoryById(inventoryId);
+        }
+
 
 
 

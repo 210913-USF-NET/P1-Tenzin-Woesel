@@ -75,6 +75,9 @@ namespace DL
         void DeleteCustomer(string name);
 
         void DeleteStore(int storeId);
+
+        void DeleteProduct(int productId);
+        void DeleteInventory(int inventoryId);
         Customer UpdateCustomer(Customer customerToUpdate);
         Product UpdateProduct(Product productToUpdate);
 
@@ -89,6 +92,8 @@ namespace DL
 
         StoreFront GetStoreById(int storeId);
 
-         //List<LineItems> AddLineItems(List<LineItems> lineItems);
+        Inventory GetInventoryById(int inventoryId);
+
+        //List<LineItems> AddLineItems(List<LineItems> lineItems);
     }
 }

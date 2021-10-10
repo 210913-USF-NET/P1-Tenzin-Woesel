@@ -43,7 +43,7 @@
             </td>
             <td>
                 @Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "fas fa-edit" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { name = item.Name }) |
 
                 @Html.ActionLink("", "Delete", new { id = item.Id }, new { @class = "fas fa-trash-alt" })
 

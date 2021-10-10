@@ -25,9 +25,10 @@ namespace WebUI.Controllers
         }
 
         // GET: Customer/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string name)
         {
-            return View();
+            Customer customerDetails = _bl.GetCustomer(name);
+            return View(customerDetails);
         }
 
         // GET: Customer/Create
@@ -69,7 +70,8 @@ namespace WebUI.Controllers
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
-            {
+            {  
+
                 return RedirectToAction(nameof(Index));
             }
             catch

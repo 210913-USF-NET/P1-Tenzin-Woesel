@@ -18,25 +18,10 @@ namespace DL
         }
         public Order AddAnOrder(Order order)
         {
-            Order orderToAdd = new Order()
-            {
-                Total = order.Total,
-                CustomerId = order.CustomerId,
-                StoreFrontId = order.StoreFrontId
-            };
-
-            orderToAdd = _context.Orders.Add(orderToAdd).Entity;
+            order = _context.Orders.Add(order).Entity;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
-
-            return new Order()
-            {
-                Id = orderToAdd.Id,
-                Total = orderToAdd.Total,
-                CustomerId = orderToAdd.CustomerId,
-                StoreFrontId = orderToAdd.StoreFrontId,
-                OrderDate = orderToAdd.OrderDate
-            };
+            return order;
         }
 
         public Customer AddCustomer(Customer customer)
@@ -49,33 +34,16 @@ namespace DL
         public Product AddProduct(Product product)
 
         {
-            Product productToAdd = new Product()
-            {
-                Name = product.Name,
-                Price = product.Price,
-                Description = product.Description,
-                Category = product.Category
-            };
-
-            productToAdd = _context.Add(productToAdd).Entity;
+            product = _context.Add(product).Entity;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
 
-            return new Product
-            {
-                Id = productToAdd.Id,
-                Name = productToAdd.Name,
-                Price = productToAdd.Price,
-                Description = productToAdd.Description,
-                Category = productToAdd.Category
-            };
+            return product;
         }
 
         public void DeleteCustomer(string name)
         {
             Customer customerToDelete = GetCustomer(name);
-
-
             _context.Remove(customerToDelete);
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
@@ -102,40 +70,16 @@ namespace DL
             }
             else
             {
-                Customer returnedCustomer = new Customer()
-                {
-                    Id = customerByName.Id,
-                    Name = customerByName.Name,
-                    Address = customerByName.Address,
-                    Email = customerByName.Email
-                };
-
-                return returnedCustomer;
-
+                return customerByName;
             }
         }
 
         public Customer UpdateCustomer(Customer customerToUpdate)
         {
-            Customer updateCustomer = new Customer()
-            {
-                Id = customerToUpdate.Id,
-                Name = customerToUpdate.Name,
-                Address = customerToUpdate.Address,
-                Email = customerToUpdate.Email
-            };
-
-            updateCustomer = _context.Customers.Update(updateCustomer).Entity;
+            customerToUpdate = _context.Customers.Update(customerToUpdate).Entity;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
-
-            return new Customer()
-            {
-                Id = updateCustomer.Id,
-                Name = updateCustomer.Name,
-                Address = updateCustomer.Address,
-                Email = updateCustomer.Email
-            };
+            return customerToUpdate;
         }
 
         public List<Customer> SearchCustomer(string queryStr)
@@ -219,27 +163,10 @@ namespace DL
 
         public Product UpdateProduct(Product productToUpdate)
         {
-            Product updateProduct = new Product()
-            {
-                Id = productToUpdate.Id,
-                Name = productToUpdate.Name,
-                Price = productToUpdate.Price,
-                Description = productToUpdate.Description,
-                Category = productToUpdate.Category
-            };
-
-            updateProduct = _context.Products.Update(updateProduct).Entity;
+            productToUpdate = _context.Products.Update(productToUpdate).Entity;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
-
-            return new Product()
-            {
-                Id = updateProduct.Id,
-                Name = updateProduct.Name,
-                Price = updateProduct.Price,
-                Description = updateProduct.Description,
-                Category = updateProduct.Category
-            };
+            return productToUpdate;
         }
 
         public StoreFront UpdateStore(StoreFront storeToUpdate)
@@ -255,22 +182,16 @@ namespace DL
         {
 
             storeFront = _context.Add(storeFront).Entity;
-
             _context.SaveChanges();
-
             _context.ChangeTracker.Clear();
-
             return storeFront;
         }
 
         public LineItems AddLineItem(LineItems lineItems)
         {
-            
-
             lineItems = _context.Add(lineItems).Entity;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
-
             return lineItems;
         }
 
@@ -279,7 +200,6 @@ namespace DL
             inventory = _context.Add(inventory).Entity;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
-
             return inventory;
         }
 
@@ -298,68 +218,35 @@ namespace DL
         {
             Product productById = _context.Products.FirstOrDefault(p => p.Id == productId);
 
-            return new Product()
-            {
-                Id = productById.Id,
-                Name = productById.Name,
-                Price = productById.Price,
-                Description = productById.Description,
-                Category = productById.Category
-            };
+            return productById;
         }
 
         public Inventory UpdateInventory(Inventory inventoryToUpdate)
         {
-            Inventory updateInventory = new Inventory()
-            {
-                Id = inventoryToUpdate.Id,
-                StoreID = inventoryToUpdate.StoreID,
-                ProductID = inventoryToUpdate.ProductID,
-                Quantity = inventoryToUpdate.Quantity,
-            };
-
-            updateInventory = _context.Inventories.Update(updateInventory).Entity;
+            inventoryToUpdate = _context.Inventories.Update(inventoryToUpdate).Entity;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
-
-            return new Inventory()
-            {
-                // Id = updateInventory.Id,
-                StoreID = updateInventory.StoreID,
-                ProductID = updateInventory.ProductID
-            };
+            return inventoryToUpdate;
         }
 
         public Order UpdateOrder(Order orderToUpdate)
         {
-            Order updateOrder = new Order()
-            {
-                Id = orderToUpdate.Id,
-                Total = orderToUpdate.Total,
-                CustomerId = orderToUpdate.CustomerId,
-                StoreFrontId = orderToUpdate.StoreFrontId,
-                OrderDate = orderToUpdate.OrderDate
-            };
-
-            updateOrder = _context.Orders.Update(updateOrder).Entity;
+            orderToUpdate = _context.Orders.Update(orderToUpdate).Entity;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
-
-            return new Order()
-            {
-                Id = updateOrder.Id,
-                Total = updateOrder.Total,
-                CustomerId = updateOrder.CustomerId,
-                StoreFrontId = updateOrder.StoreFrontId,
-                OrderDate = orderToUpdate.OrderDate
-            };
+            return orderToUpdate;
         }
 
         public StoreFront GetStoreById(int storeId)
         {
-            StoreFront  storeById = _context.StoreFronts.Include(s => s.Inventories).FirstOrDefault(s => s.Id == storeId);
-
+            StoreFront storeById = _context.StoreFronts.Include(s => s.Inventories).FirstOrDefault(s => s.Id == storeId);
             return storeById;
+        }
+
+        public Inventory GetInventoryById(int inventoryId)
+        {
+            Inventory inventoryById = _context.Inventories.FirstOrDefault(i => i.Id == inventoryId);
+            return inventoryById;
         }
         /// <summary>
         /// Deletes a Store
@@ -372,6 +259,18 @@ namespace DL
             _context.ChangeTracker.Clear();
         }
 
-       
+        public void DeleteProduct(int productId)
+        {
+            _context.Products.Remove(GetProductById(productId));
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+        }
+
+        public void DeleteInventory(int inventoryId)
+        {
+            _context.Inventories.Remove(GetInventoryById(inventoryId));
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+        }
     }
 }

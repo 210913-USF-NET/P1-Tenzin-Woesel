@@ -7,18 +7,18 @@
     <h1 class="display-4">Welcome to Snow Lion Store</h1>
     <p>Where you can buy everyday products easily.</p>
 </div>
-@if (User.Identity.IsAuthenticated)
-{
-    <div class="row">
-        <div class="col-md-4">
-            <p>Returning Customer?</p>
-            <a asp-action="Login"><button class="btn btn-primary">Sign In</button></a>
-        </div>
 
-        <div>
-            <p>Don't have an account yet?</p>
-            <a asp-action="CreateUser"><button class="btn btn-primary">Create New Account.</button></a>
-        </div>
+
+<div class="row">
+    <div class="col-md-4">
+        <p>Returning Customer?</p>
+        <a asp-action="Login"><button class="btn btn-dark">Sign In</button></a>
     </div>
-}
+
+    <div>
+        <p>Don't have an account yet?</p>
+        <a asp-action="CreateUser"><button class="btn btn-dark">Create New Account.</button></a>
+    </div>
+</div>
+
 

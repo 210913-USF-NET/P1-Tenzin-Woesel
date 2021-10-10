@@ -3,25 +3,26 @@ for details on configuring this project to bundle and minify static web assets. 
 
 a.navbar-brand {
   white-space: normal;
+  justify-items: center;
   text-align: center;
   word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+  color: darkblue;
 }
 
-.btn-primary {
+/*.btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
-}
+}*/
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: darkblue;
+    background-color: darkblue;
+    border-color: darkblue;
 }
 
 /* Sticky footer styles
@@ -36,10 +37,10 @@ html {
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid darkblue;
 }
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid darkblue;
 }
 
 .box-shadow {
@@ -59,8 +60,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    color: darkblue;
 }
 .footer {
   position: absolute;
@@ -69,3 +71,14 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+div{
+    border-block-color: black;
+}
+
+table, thead, tr, th, td {
+    border: 1px solid black;
+    border-radius: 10px;
+    color: darkblue;
+}
+

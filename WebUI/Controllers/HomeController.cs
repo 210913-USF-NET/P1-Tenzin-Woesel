@@ -95,7 +95,7 @@ namespace WebUI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var checkIfUserExist = _bl.SearchCustomer(customer.Name);
+                    var checkIfUserExist = _bl.GetCustomer(customer.Name);
                     if (checkIfUserExist == null)
                     {
                         _bl.AddCustomer(customer.ToModel());
