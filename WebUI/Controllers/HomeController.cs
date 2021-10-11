@@ -32,7 +32,7 @@ namespace WebUI.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Profile()
         {
             return View();
         }
@@ -51,25 +51,28 @@ namespace WebUI.Controllers
         }
         [HttpPost("Login")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginVM model, string returnUrl)
+        public ActionResult Login(LoginVM model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     string name = model.Name;
+                    if (name == "Admin")
+                    {
+                        Response.Cookies.Append("Admin", "Admin");
+                        return RedirectToAction(nameof(Index));
+                    }
                     var result = _bl.GetCustomer(name);
                     if (result != null)
                     {
-                        var claims = new List<Claim>();
-                        claims.Add(new Claim("username", name));
-                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                        await HttpContext.SignInAsync(claimsPrincipal);
-                        return Redirect(returnUrl);
+                        Response.Cookies.Append("CustomerId", result.Id.ToString());
+                        Response.Cookies.Append("CurrentCustomer", name);
+
+                        return View("Profile");
                     }
                     ModelState.AddModelError(string.Empty, "Invalid Login Attempt. No such user found. Please try again.");
-                    
+
                 }
                 return View("login");
             }
@@ -110,11 +113,49 @@ namespace WebUI.Controllers
                 return View("Index");
             }
         }
-        [Authorize]
-        public async Task<ActionResult> Logout()
+        public ActionResult Logout()
         {
-            await HttpContext.SignOutAsync();
-            return Redirect("/");
+            if (Request.Cookies["CurrentCustomer"] != null)
+            {
+                Response.Cookies.Delete("CurrentCustomer");
+                Response.Cookies.Delete("CustomerId");
+            }
+            if (Request.Cookies["Admin"] != null)
+            {
+                Response.Cookies.Delete("Admin");
+            }
+            return View("Index");
         }
+        public ActionResult Stores()
+        {
+            List<StoreVM> allStores = _bl.GetAllStores().Select(r => new StoreVM(r)).ToList();
+            return View(allStores);
+        }
+
+        public ActionResult Inventories(int storeId)
+        {
+            Response.Cookies.Delete("StoreId");
+            Response.Cookies.Append("StoreId", storeId.ToString());
+            List<Inventory> inventoriesByStoreId = _bl.GetInventoriesByStoreId(storeId);
+            foreach (var inventory in inventoriesByStoreId)
+            {
+                inventory.Product = _bl.GetProductById(inventory.ProductID);
+            }
+            return View(inventoriesByStoreId);
+        }
+
+        public ActionResult StartOrder(string storeId, string customerId)
+        {
+            int storeNumber = int.Parse(storeId);
+            int customerNumber = int.Parse(customerId);
+            Order order = new Order();
+            order.StoreFrontId = storeNumber;
+            order.CustomerId = customerNumber;
+            order.OrderDate = DateTime.Now;
+             _bl.AddOrder(order);
+            return View();
+        }
+
     }
+
 }

@@ -42,7 +42,16 @@ namespace WebUI.Controllers
         // GET: InventoryController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Inventory inventoryDetails = _bl.GetInventoryById(id);
+            if(inventoryDetails == null)
+            {
+                ModelState.AddModelError(string.Empty, "No invetories to look at");
+                return View();
+            }
+            Product productById = _bl.GetProductById(inventoryDetails.ProductID);
+            inventoryDetails.Product = productById;
+
+            return View(inventoryDetails);
         }
 
         // GET: InventoryController/Create

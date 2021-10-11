@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Models.Inventory>
+
+@{
+    ViewData["Title"] = "Inventories";
+}
+
+<h1>Inventories</h1>
+
+<p>
+    Do you see the item you are looking for?
+    <a asp-action="Create">Start Order</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Name)
+            </th>
+            <th>
+                Available
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+           
+            <td>
+                @Html.ActionLink("SelectThis", "StartOrder", new { productId=item.ProductID, storeId = Context.Request.Cookies["StoreId"], customerId = Context.Request.Cookies["CustomerId"], }) 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

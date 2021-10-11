@@ -24,10 +24,11 @@ namespace WebUI.Controllers
             return View(allProduct);
         }
 
+
         // GET: ProductController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_bl.GetProductById(id));
         }
 
         // GET: ProductController/Create
@@ -81,7 +82,8 @@ namespace WebUI.Controllers
         // GET: ProductController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            
+            return View(_bl.GetProductById(id));
         }
 
         // POST: ProductController/Delete/5
@@ -91,7 +93,7 @@ namespace WebUI.Controllers
         {
             try
             {
-                
+                _bl.DeleteProduct(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -22,6 +22,12 @@ namespace Models
             this.Total = total;
         }
 
+        public Order(int customerId, int storeId)
+        {
+            this.CustomerId = customerId;
+            this.StoreFrontId = storeId;
+        }
+
         public Order()
         {
             this.LineItems = new List<LineItems>();

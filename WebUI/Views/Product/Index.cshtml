@@ -34,7 +34,7 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    <span>$</span>@Html.DisplayFor(modelItem => item.Price, "{0:c}")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
@@ -44,9 +44,9 @@
                 </td>
                 <td>
                     @Html.ActionLink("", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "fas fa-edit" }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
 
-                    @Html.ActionLink("", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "fas fa-trash-alt" })
+                    @Html.ActionLink("", "Delete", new { id=item.Id }, new { @class = "fas fa-trash-alt" })
                 </td>
             </tr>
         }

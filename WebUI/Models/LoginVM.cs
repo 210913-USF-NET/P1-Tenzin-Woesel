@@ -13,10 +13,12 @@ namespace WebUI.Models
 
         public LoginVM(Customer customer)
         {
+            this.Id = customer.Id;
             this.Name = customer.Name;
             this.Email = customer.Email;
             this.Address = customer.Address;
         }
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
 
@@ -28,6 +30,7 @@ namespace WebUI.Models
         {
             return new Customer
             {
+                Id = this.Id,
                 Name = this.Name,
                 Email = this.Email,
                 Address = this.Address

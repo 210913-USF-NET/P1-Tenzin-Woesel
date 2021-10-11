@@ -18,8 +18,10 @@ namespace WebUI.Controllers
             _bl = bl;
         }
         // GET: OrderController
-        public ActionResult Index()
+        public ActionResult Index(int storeId, int customerId)
         {
+            ViewData["StoreId"] = storeId;
+            ViewData["CustomerId"] = customerId;
             List<Order> allOrders = _bl.GetAllOrders();
             return View(allOrders);
         }
@@ -31,9 +33,10 @@ namespace WebUI.Controllers
         }
 
         // GET: OrderController/Create
-        public ActionResult Create(int id)
+        public ActionResult Create(int storeId, int customerId)
         {
-            List<Inventory> inventoryForStore = _bl.GetInventoriesByStoreId(id);
+            IEnumerable<Inventory> inventoryByStore = _bl.GetInventoriesByStoreId(storeId);
+            ViewBag.Inventories = inventoryByStore;
             
             return View();
         }
@@ -41,10 +44,11 @@ namespace WebUI.Controllers
         // POST: OrderController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Order  order)
         {
             try
             {
+                _bl.AddOrder(order);
                 return RedirectToAction(nameof(Index));
             }
             catch

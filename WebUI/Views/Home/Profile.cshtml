@@ -3,4 +3,4 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Welcome to you profile :)</p>
+<p>Welcome to you profile @Context.Request.Cookies["CurrentCustomer"]</p>

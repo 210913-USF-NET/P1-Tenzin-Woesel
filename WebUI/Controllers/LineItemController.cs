@@ -21,10 +21,10 @@ namespace WebUI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult Index(int id)
+        public ActionResult Index()
         {
-            _bl.GetLineItems();
-            return View();
+            
+            return View(_bl.GetLineItems());
         }
 
         // GET: LineItemController/Details/5
@@ -34,7 +34,7 @@ namespace WebUI.Controllers
         }
 
         // GET: LineItemController/Create
-        public ActionResult Create()
+        public ActionResult Create(int storeId, int customerId)
         {
             return View();
         }
