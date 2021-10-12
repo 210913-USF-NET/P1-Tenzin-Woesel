@@ -55,8 +55,8 @@ namespace DL.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    //b.Property<int?>("StoreFrontId")
-                    //    .HasColumnType("integer");
+                    b.Property<int?>("StoreFrontId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("StoreID")
                         .HasColumnType("integer");

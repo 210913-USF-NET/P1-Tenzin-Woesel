@@ -26,16 +26,16 @@ namespace WebUI.Controllers
         public ActionResult Index(int id)
         {
             ViewData["Integer"] = id;
-            
-            List<Inventory> inventoryByStore = _bl.GetInventoriesByStoreId(id);
-            
-                foreach (var inventory in inventoryByStore)
-                {
-                    inventory.Product = _bl.GetProductById(inventory.ProductID);
-                }
 
-                
-            
+            List<Inventory> inventoryByStore = _bl.GetInventoriesByStoreId(id);
+
+            foreach (var inventory in inventoryByStore)
+            {
+                inventory.Product = _bl.GetProductById(inventory.ProductID);
+            }
+
+
+
             return View(inventoryByStore);
         }
 
@@ -43,7 +43,7 @@ namespace WebUI.Controllers
         public ActionResult Details(int id)
         {
             Inventory inventoryDetails = _bl.GetInventoryById(id);
-            if(inventoryDetails == null)
+            if (inventoryDetails == null)
             {
                 ModelState.AddModelError(string.Empty, "No invetories to look at");
                 return View();
@@ -91,17 +91,23 @@ namespace WebUI.Controllers
         // GET: InventoryController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+
+            return View(_bl.GetInventoryById(id));
         }
 
         // POST: InventoryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Inventory inventory)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _bl.UpdateInventory(inventory);
+                    return RedirectToAction(nameof(Index));
+                }
+                return RedirectToAction(nameof(Edit));
             }
             catch
             {

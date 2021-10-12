@@ -19,6 +19,8 @@ namespace WebUI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        public List<LineItems> itemsCart = new List<LineItems>();
+
         private readonly IBL _bl;
 
         public HomeController(ILogger<HomeController> logger, IBL bl)
@@ -34,7 +36,7 @@ namespace WebUI.Controllers
 
         public IActionResult Profile()
         {
-            return View();
+            return View("Profile");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -119,12 +121,14 @@ namespace WebUI.Controllers
             {
                 Response.Cookies.Delete("CurrentCustomer");
                 Response.Cookies.Delete("CustomerId");
+                Response.Cookies.Delete("StoreId");
             }
             if (Request.Cookies["Admin"] != null)
             {
                 Response.Cookies.Delete("Admin");
+                Response.Cookies.Delete("StoreId");
             }
-            return View("Index");
+            return RedirectToAction("Index");
         }
         public ActionResult Stores()
         {
@@ -141,21 +145,41 @@ namespace WebUI.Controllers
             {
                 inventory.Product = _bl.GetProductById(inventory.ProductID);
             }
+
+            ViewBag.Inventory = inventoriesByStoreId;
             return View(inventoriesByStoreId);
         }
 
-        public ActionResult StartOrder(string storeId, string customerId)
+        public ActionResult StartOrder(int productId)
         {
-            int storeNumber = int.Parse(storeId);
-            int customerNumber = int.Parse(customerId);
+
+            int storeNumber = int.Parse(Request.Cookies["StoreId"]);
+            int customerNumber = int.Parse(Request.Cookies["CustomerId"]);
+
             Order order = new Order();
             order.StoreFrontId = storeNumber;
             order.CustomerId = customerNumber;
             order.OrderDate = DateTime.Now;
-             _bl.AddOrder(order);
+            _bl.AddOrder(order);
+
+            List<Inventory> inventories = _bl.GetInventoriesByStoreId(storeNumber);
+            foreach (var inventory in inventories)
+            {
+                inventory.Product = _bl.GetProductById(inventory.ProductID);
+            }
+            ViewBag.Inventory = inventories;
+
             return View();
         }
+       
+        [HttpPost]
+        public ActionResult LineItem(List<LineItems> items)
+        {
 
+            return View();
+
+        }
     }
 
 }
+

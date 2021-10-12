@@ -4,18 +4,17 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DL.Migrations
 {
-    public partial class Initial : Migration
+    public partial class second : Migration
     {
+
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
             migrationBuilder.DropTable("Inventories");
             migrationBuilder.DropTable("LineItems");
             migrationBuilder.DropTable("Orders");
             migrationBuilder.DropTable("Customers");
             migrationBuilder.DropTable("Products");
             migrationBuilder.DropTable("StoreFronts");
-
 
             migrationBuilder.CreateTable(
                 name: "Customers",
@@ -71,6 +70,7 @@ namespace DL.Migrations
                     Quantity = table.Column<int>(type: "integer", nullable: false),
                     ProductID = table.Column<int>(type: "integer", nullable: false),
                     StoreID = table.Column<int>(type: "integer", nullable: false),
+                    StoreFrontId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,8 +82,8 @@ namespace DL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Inventories_StoreFronts_StoreId",
-                        column: x => x.StoreID,
+                        name: "FK_Inventories_StoreFronts_StoreFrontId",
+                        column: x => x.StoreFrontId,
                         principalTable: "StoreFronts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);

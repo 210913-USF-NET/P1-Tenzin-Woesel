@@ -35,7 +35,8 @@
                     @Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "fas fa-edit" }) |
                     @Html.ActionLink("Inventories", "Index", "Inventory", new { id = item.Id }) |
 
-                    @Html.ActionLink("", "Delete", new { id = item.Id }, new { @class = "fas fa-trash-alt" })
+                    @Html.ActionLink("", "Delete", new { id = item.Id }, new { @class = "fas fa-trash-alt" }) |
+                    @Html.ActionLink("OrderHistory", "OrderHistory", new { id = item.Id })
                 </td>
             </tr>
         }

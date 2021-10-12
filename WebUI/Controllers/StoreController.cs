@@ -21,6 +21,7 @@ namespace WebUI.Controllers
         public ActionResult Index()
         {
             List<StoreVM> allStores = _bl.GetAllStores().Select(r => new StoreVM(r)).ToList();
+            //allStores.OrderBy(s => s.Name);
             return View(allStores);
         }
 

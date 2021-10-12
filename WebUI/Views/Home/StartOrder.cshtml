@@ -1,4 +1,4 @@
-﻿@model Models.Order
+﻿@model Models.LineItems
 
 @{
     ViewData["Title"] = "StartOrder";
@@ -12,7 +12,35 @@
     <div class="col-md-4">
         <form asp-action="StartOrder">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
- 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                        <th>Product Description</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var inv in ViewBag.Inventory)
+                    {
+                        <tr>
+                            <td>
+                                @inv.Product.Name
+                            </td>
+                            <td>
+                                @inv.Product.Price
+                            </td>
+                            <td>
+                                @inv.Product.Description
+                            </td>
+                            <td>
+                                @Html.ActionLink("", "Edit", new { }, new { @class = "fas fa-edit" }) |
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

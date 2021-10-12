@@ -126,7 +126,7 @@ namespace DL
             {
                 Id = order.Id,
                 Total = order.Total,
-                OrderDate = order.OrderDate,
+                OrderDate = order.OrderDate.ToLocalTime(),
                 CustomerId = order.CustomerId,
                 StoreFrontId = order.StoreFrontId
             }).ToList();
