@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Models;
@@ -36,6 +37,10 @@ namespace WebUI.Controllers
 
         public IActionResult Profile()
         {
+            Customer customer = _bl.GetCustomer(Request.Cookies["CurrentCustomer"]);
+            //IEnumerable<string> query = from order in customer.Orders
+            //                            orderby order.OrderDate) ;
+            ViewBag.Customer = customer;
             return View("Profile");
         }
 
@@ -71,7 +76,7 @@ namespace WebUI.Controllers
                         Response.Cookies.Append("CustomerId", result.Id.ToString());
                         Response.Cookies.Append("CurrentCustomer", name);
 
-                        return View("Profile");
+                        return View(nameof(Index));
                     }
                     ModelState.AddModelError(string.Empty, "Invalid Login Attempt. No such user found. Please try again.");
 
@@ -147,21 +152,14 @@ namespace WebUI.Controllers
             }
 
             ViewBag.Inventory = inventoriesByStoreId;
+
+
             return View(inventoriesByStoreId);
         }
 
-        public ActionResult StartOrder(int productId)
+        public ActionResult StartOrder()
         {
-
             int storeNumber = int.Parse(Request.Cookies["StoreId"]);
-            int customerNumber = int.Parse(Request.Cookies["CustomerId"]);
-
-            Order order = new Order();
-            order.StoreFrontId = storeNumber;
-            order.CustomerId = customerNumber;
-            order.OrderDate = DateTime.Now;
-            _bl.AddOrder(order);
-
             List<Inventory> inventories = _bl.GetInventoriesByStoreId(storeNumber);
             foreach (var inventory in inventories)
             {
@@ -171,9 +169,64 @@ namespace WebUI.Controllers
 
             return View();
         }
-       
+
         [HttpPost]
-        public ActionResult LineItem(List<LineItems> items)
+        [ValidateAntiForgeryToken]
+        public ActionResult StartOrder(IFormCollection form)
+        {
+            int customerNumber = int.Parse(Request.Cookies["CustomerId"]);
+            int storeNumber = int.Parse(Request.Cookies["StoreId"]);
+            Order order = new Order();
+            order.StoreFrontId = storeNumber;
+            order.CustomerId = customerNumber;
+            order.OrderDate = DateTime.Now;
+            order = _bl.AddOrder(order);
+            //Response.Cookies.Delete("OrderId");
+            //Response.Cookies.Append("OrderId", order.Id.ToString());
+
+
+            foreach (var key in form)
+            {
+                if (key.Key == "__RequestVerificationToken")
+                {
+                    break;
+                }
+                if (key.Value == 0)
+                {
+                    continue;
+                }
+
+
+                int howMany = Int32.Parse(key.Value);
+
+                int productId = int.Parse(key.Key);
+
+                LineItems item = new LineItems();
+                item.ProductId = productId;
+                item.OrderId = order.Id;
+                item.Quantity = howMany;
+                List<Inventory> inventories = _bl.GetInventoriesByStoreId(storeNumber);
+
+                foreach (var inv in inventories)
+                {
+                    if (inv.ProductID == productId)
+                    {
+                        inv.Quantity -= howMany;
+                    }
+
+                    _bl.UpdateInventory(inv);
+
+                }
+                order.LineItems.Add(item);
+                Product product = _bl.GetProductById(productId);
+                order.Total += howMany * product.Price;
+            }
+            _bl.UpdateOrder(order);
+            ViewBag.Order = order;
+
+            return View("OrderSuccessful");
+        }
+        public ActionResult OrderSuccessful()
         {
 
             return View();

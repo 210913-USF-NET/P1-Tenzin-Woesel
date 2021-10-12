@@ -3,17 +3,18 @@
 @{
     ViewData["Title"] = "Stores";
 }
+<div style="text-align:center;width: 300px;margin: 0 auto;">
+    <h1>All available Stores</h1>
 
-<h1>All available Stores</h1>
-
-@foreach (var item in Model)
-{
-    <div class="card-block">
-        <div class="card-body">
-            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
-            <p class="card-text"> @Html.DisplayFor(modelItem => item.Address)</p>
-            <a class="btn btn-dark" asp-area="" asp-controller="Home" asp-action="Inventories" asp-route-storeId="@item.Id" >Select</a>
+    @foreach (var item in Model)
+    {
+        <div class="card-block">
+            <div class="card-body">
+                <h5 class="card-title">Store Name: @Html.DisplayFor(modelItem => item.Name)</h5>
+                <p class="card-text"> @Html.DisplayFor(modelItem => item.Address)</p>
+                <a class="btn btn-dark" asp-area="" asp-controller="Home" asp-action="Inventories" asp-route-storeId="@item.Id">Select</a>
+            </div>
         </div>
-    </div>
-  
-}
+
+    }
+</div>

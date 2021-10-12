@@ -8,47 +8,66 @@
 
 <h4>Order</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="StartOrder">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Product Price</th>
-                        <th>Product Description</th>
-                        <th>Quantity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var inv in ViewBag.Inventory)
-                    {
-                        <tr>
-                            <td>
-                                @inv.Product.Name
-                            </td>
-                            <td>
-                                @inv.Product.Price
-                            </td>
-                            <td>
-                                @inv.Product.Description
-                            </td>
-                            <td>
-                                @Html.ActionLink("", "Edit", new { }, new { @class = "fas fa-edit" }) |
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+<div class="container">
+    <form name="order" class="row" asp-action="StartOrder">
+        @*@for (int i = 0; i < ViewBag.Inventory.Count; i++)*@
+        @foreach (var inv in ViewBag.Inventory)
+        {
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <div class="card-deck">
+                    <div class="card-body">
+                        <h5 class="card-title">Product Name</h5><p class="card-text"> @inv.Product.Name</p>
+                        <h5 class="card-title">Price</h5><p class="card-text"> @inv.Product.Price</p>
+                        <h5 class="card-title">Description</h5><p class="card-text"> @inv.Product.Description</p>
+                        <h5 class="card-title">How many do you want?</h5>
+                        <input type="number" name="@inv.Product.Id" value="0" min="0" max=@inv.Quantity class="form-control" /><br />
+                    </div>
+                </div>
             </div>
-        </form>
-    </div>
+
+        }
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" />
+        </div>
+    </form>
 </div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Product Description</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var inv in ViewBag.Inventory)
+            {
+                <tr>
+                    <td>
+                        @inv.Product.Name
+                    </td>
+                    <td>
+                        @inv.Product.Price
+                    </td>
+                    <td>
+                        @inv.Product.Description
+                    </td>
+                    <td class="form-group">
+                        <label asp-for="Quantity" class="control-label"></label>
+                        <input asp-for="Quantity" class="form-control" />
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Add to Cart", "StartOrder", new { })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@

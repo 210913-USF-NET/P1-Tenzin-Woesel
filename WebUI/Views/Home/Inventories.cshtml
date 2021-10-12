@@ -4,11 +4,11 @@
     ViewData["Title"] = "Inventories";
 }
 
-<h1>Inventories</h1>
+<h1>Products available at this Store</h1>
 
 <p>
     Do you see the item you are looking for?
-    <a asp-action="Create">Start Order</a>
+    <button class="btn-secondary"> @Html.ActionLink("StartOrder", "StartOrder")</button>
 </p>
 <table class="table">
     <thead>
@@ -37,9 +37,6 @@
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
            
-            <td>
-                @Html.ActionLink("SelectThis", "StartOrder", new { productId=item.ProductID }) 
-            </td>
         </tr>
 }
     </tbody>

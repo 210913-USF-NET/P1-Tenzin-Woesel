@@ -1,7 +1,13 @@
-﻿@{
+﻿@model Models.Customer;
+
+@{
     ViewData["Title"] = "Profile Menu";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Welcome to you profile @Context.Request.Cookies["CurrentCustomer"]</p>
+<p>Welcome to you profile @ViewBag.Customer.Name </p>
+
+@foreach (var order in ViewBag.Customer.Orders)
+{
+    <p>@order</p>
+}

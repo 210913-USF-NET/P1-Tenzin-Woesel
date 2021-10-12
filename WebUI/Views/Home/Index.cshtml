@@ -11,17 +11,18 @@
 @if (Context.Request.Cookies["CurrentCustomer"] == null)
 {
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <p>Returning Customer?</p>
             <a asp-action="Login"><button class="btn btn-dark">Sign In</button></a>
         </div>
-
-        <div class="col-md-4">
+        <div class="col-md-6">
             <p>Don't have an account yet?</p>
             <a asp-action="CreateUser"><button class="btn btn-dark">Create New Account.</button></a>
         </div>
     </div> }
 else
 {
-    @Html.ActionLink("Start Shopping", "Stores")
+    <div style="text-align:center;width: 300px;margin: 0 auto;">
+        <button class="btn-secondary">@Html.ActionLink("Start Shopping", "Stores", new { Style = "color: white" })</button>
+    </div>
 }

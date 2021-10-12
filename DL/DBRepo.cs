@@ -51,7 +51,7 @@ namespace DL
 
         public List<Customer> GetAllCustomers()
         {
-            return _context.Customers.Select(customer => new Customer()
+            return _context.Customers.Include("Orders").Select(customer => new Customer()
             {
                 Id = customer.Id,
                 Name = customer.Name,
@@ -62,7 +62,7 @@ namespace DL
 
         public Customer GetCustomer(string name)
         {
-            Customer customerByName = _context.Customers.FirstOrDefault(s => s.Name == name);
+            Customer customerByName = _context.Customers.Include("Orders").FirstOrDefault(s => s.Name == name);
 
             if (customerByName == null)
             {

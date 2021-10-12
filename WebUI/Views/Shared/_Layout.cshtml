@@ -16,7 +16,8 @@
             background-image: url(shop.jpg);
         }
 
-        .table {
+        .white-text {
+            color: white;
         }
 
         table, thead, tr, th, td {
@@ -27,6 +28,10 @@
 
         a {
             color: black;
+        }
+
+        .button {
+            border-radius: 12px;
         }
 
         #mainbody {
@@ -73,14 +78,15 @@
                                 <a class="nav-link" asp-area="" asp-controller="LineItem" asp-action="Index">LineItems</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                             </li>
                         }
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
                         @if (Context.Request.Cookies["CurrentCustomer"] != null)
                         {
-                            <li class="nav-item">
-
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                            <li>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                             </li>
                         }
                     </ul>
