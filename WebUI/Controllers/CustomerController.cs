@@ -102,6 +102,18 @@ namespace WebUI.Controllers
             }
         }
 
-        
+        public ActionResult OrderHistory(int id)
+        {
+            List<Order> orders = _bl.GetAllOrders();
+            List<Order> orderByCustomer = new List<Order>();
+            foreach (var o in orders)
+            {
+                if (o.CustomerId == id)
+                {
+                    orderByCustomer.Add(o);
+                }
+            }
+            return View(orderByCustomer);
+        }
     }
 }

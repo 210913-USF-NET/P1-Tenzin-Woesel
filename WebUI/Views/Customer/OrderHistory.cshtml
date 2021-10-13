@@ -1,0 +1,38 @@
+﻿
+@model IEnumerable<Models.Order>
+
+@{
+    ViewData["Title"] = "OrderHistory";
+}
+
+<h1>OrderHistory</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Date of Order
+            </th>
+            <th>
+                Total
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => order.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => order.Total)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+

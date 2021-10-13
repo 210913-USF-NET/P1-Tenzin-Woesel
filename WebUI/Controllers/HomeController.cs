@@ -252,6 +252,8 @@ namespace WebUI.Controllers
             orders = orders.OrderBy(o => o.OrderDate).ToList();
             return View(orders);
         }
+
+        
     }
 
 }
