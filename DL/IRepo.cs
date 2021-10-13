@@ -94,6 +94,5 @@ namespace DL
 
         Inventory GetInventoryById(int inventoryId);
 
-        //List<LineItems> AddLineItems(List<LineItems> lineItems);
     }
 }

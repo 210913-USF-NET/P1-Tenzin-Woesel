@@ -50,11 +50,13 @@
                     @Html.DisplayFor(modelItem => item.Total)
                 </td>
                 <td>
-                    @Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "fas fa-edit" }) |
+                    @*@Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "fas fa-edit" }) |
                     @Html.ActionLink("LineItem", "Index", new { id = item.Id }) |
-                    @Html.ActionLink("", "Delete", new { id = item.Id }, new { @class = "fas fa-trash-alt" })
+                    @Html.ActionLink("", "Delete", new { id = item.Id }, new { @class = "fas fa-trash-alt" })*@
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<a asp-action="OrderByLatest">Sort Order by Latest Date</a>
+<a asp-action="OrderByOldest">Sort Order by Oldest Date</a>

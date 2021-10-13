@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Models;
+using Serilog;
 using StoreBL;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,6 @@ namespace WebUI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public List<LineItems> itemsCart = new List<LineItems>();
 
         private readonly IBL _bl;
 
@@ -35,13 +35,12 @@ namespace WebUI.Controllers
             return View();
         }
 
+        [HttpGet("Profile")]
         public IActionResult Profile()
         {
             Customer customer = _bl.GetCustomer(Request.Cookies["CurrentCustomer"]);
-            //IEnumerable<string> query = from order in customer.Orders
-            //                            orderby order.OrderDate) ;
-            ViewBag.Customer = customer;
-            return View("Profile");
+            
+            return View("Profile", customer);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -51,11 +50,11 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("Login")]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
-            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
+
         [HttpPost("Login")]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginVM model)
@@ -68,7 +67,7 @@ namespace WebUI.Controllers
                     if (name == "Admin")
                     {
                         Response.Cookies.Append("Admin", "Admin");
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction("Index", "Store");
                     }
                     var result = _bl.GetCustomer(name);
                     if (result != null)
@@ -79,7 +78,7 @@ namespace WebUI.Controllers
                         return View(nameof(Index));
                     }
                     ModelState.AddModelError(string.Empty, "Invalid Login Attempt. No such user found. Please try again.");
-
+                    Log.Information("Someone tried to login with wrong information.");
                 }
                 return View("login");
             }
@@ -90,10 +89,9 @@ namespace WebUI.Controllers
         }
 
         // GET: Customer/Create
-        [HttpGet]
         public ActionResult CreateUser()
         {
-            return View("CreateUser");
+            return View();
         }
 
         // POST: Customer/Create
@@ -109,6 +107,7 @@ namespace WebUI.Controllers
                     if (checkIfUserExist == null)
                     {
                         _bl.AddCustomer(customer.ToModel());
+                        Log.Information("Account successfully Created.");
                         return RedirectToAction(nameof(Index));
                     }
                     ModelState.AddModelError(string.Empty, "This name is already in use. Please choose a different name.");
@@ -133,14 +132,18 @@ namespace WebUI.Controllers
                 Response.Cookies.Delete("Admin");
                 Response.Cookies.Delete("StoreId");
             }
+            Log.Information("Logged out successfully.");
             return RedirectToAction("Index");
         }
+
+        [HttpGet("Stores")]
         public ActionResult Stores()
         {
             List<StoreVM> allStores = _bl.GetAllStores().Select(r => new StoreVM(r)).ToList();
             return View(allStores);
         }
 
+        [HttpGet("Inventories")]
         public ActionResult Inventories(int storeId)
         {
             Response.Cookies.Delete("StoreId");
@@ -156,7 +159,7 @@ namespace WebUI.Controllers
 
             return View(inventoriesByStoreId);
         }
-
+        [HttpGet]
         public ActionResult StartOrder()
         {
             int storeNumber = int.Parse(Request.Cookies["StoreId"]);
@@ -181,10 +184,7 @@ namespace WebUI.Controllers
             order.CustomerId = customerNumber;
             order.OrderDate = DateTime.Now;
             order = _bl.AddOrder(order);
-            //Response.Cookies.Delete("OrderId");
-            //Response.Cookies.Append("OrderId", order.Id.ToString());
-
-
+            int totalItemBought = 0;
             foreach (var key in form)
             {
                 if (key.Key == "__RequestVerificationToken")
@@ -217,20 +217,40 @@ namespace WebUI.Controllers
                     _bl.UpdateInventory(inv);
 
                 }
+
                 order.LineItems.Add(item);
                 Product product = _bl.GetProductById(productId);
                 order.Total += howMany * product.Price;
+                totalItemBought += howMany;
             }
+            
             _bl.UpdateOrder(order);
+            ViewBag.ItemsBought = totalItemBought;
             ViewBag.Order = order;
-
+            Log.Information("Order created successfully.");
             return View("OrderSuccessful");
         }
         public ActionResult OrderSuccessful()
         {
-
             return View();
 
+        }
+
+        [HttpGet("OrderByLatest")]
+        public ActionResult OrderByLatest()
+        {
+            Customer customer = _bl.GetCustomer(Request.Cookies["CurrentCustomer"]);
+            List<Order> orders = customer.Orders;
+            orders = orders.OrderByDescending(o => o.OrderDate).ToList();
+            return View(orders);
+        }
+        [HttpGet("OrderByOldest")]
+        public ActionResult OrderByOldest()
+        {
+            Customer customer = _bl.GetCustomer(Request.Cookies["CurrentCustomer"]);
+            List<Order> orders = customer.Orders;
+            orders = orders.OrderBy(o => o.OrderDate).ToList();
+            return View(orders);
         }
     }
 

@@ -81,18 +81,19 @@ namespace WebUI.Controllers
         }
 
         // GET: Customer/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string name)
         {
-            return View();
+            return View(_bl.GetCustomer(name));
         }
 
         // POST: Customer/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(string name, IFormCollection collection)
         {
             try
             {
+                //_bl.DeleteCustomer(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

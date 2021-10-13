@@ -11,7 +11,7 @@ namespace DL.Migrations
 {
     [DbContext(typeof(StoreDBContext))]
     [Migration("20211011043712_second")]
-    partial class second
+    partial class Second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

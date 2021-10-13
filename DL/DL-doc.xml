@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DL</name>
+    </assembly>
+    <members>
+        <member name="M:DL.DBRepo.DeleteStore(System.Int32)">
+            <summary>
+            Deletes a Store
+            </summary>
+            <param name="storeId"> id of the store to be deleted. </param>
+        </member>
+        <member name="M:DL.IRepo.AddCustomer(Models.Customer)">
+            <summary>
+             Adds Customer to the database.
+            </summary>
+            <param name="customer"> customer to be added</param>
+            <returns>added customer</returns>
+        </member>
+        <member name="M:DL.IRepo.GetCustomer(System.String)">
+            <summary>
+            Gets a customer by their name.
+            </summary>
+            <param name="name">customer</param>
+            <returns>customer</returns>
+        </member>
+        <member name="M:DL.IRepo.AddAnOrder(Models.Order)">
+            <summary>
+            Adds order to the database.
+            </summary>
+            <param name="order">order</param>
+            <returns>added order</returns>
+        </member>
+        <member name="M:DL.IRepo.AddProduct(Models.Product)">
+            <summary>
+            Adds a product to the database.
+            </summary>
+            <param name="product">poduct</param>
+            <returns>addedProduct</returns>
+        </member>
+        <member name="M:DL.IRepo.AddStore(Models.StoreFront)">
+            <summary>
+            Adds a store to the database.
+            </summary>
+            <param name="storeFront">Store</param>
+            <returns>added store</returns>
+        </member>
+        <member name="M:DL.IRepo.AddLineItem(Models.LineItems)">
+            <summary>
+            Adds lineitems to the database.
+            </summary>
+            <param name="lineItems">lineitems</param>
+            <returns>added lineitem</returns>
+        </member>
+        <member name="M:DL.IRepo.AddInventory(Models.Inventory)">
+            <summary>
+            Adds inventory to database.
+            </summary>
+            <param name="inventory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DL.IRepo.GetAllCustomers">
+            <summary>
+            Gets all customer from the database.
+            </summary>
+            <returns>list of all customers.</returns>
+        </member>
+        <member name="M:DL.IRepo.GetAllProducts">
+            <summary>
+            Gets all products from the database.
+            </summary>
+            <returns>list of all products</returns>
+        </member>
+        <member name="M:DL.IRepo.GetProductById(System.Int32)">
+            <summary>
+            Gets a product by their id from the database.
+            </summary>
+            <param name="productId">int</param>
+            <returns>A product.</returns>
+        </member>
+        <member name="M:DL.IRepo.GetAllOrders">
+            <summary>
+            Gets all orders from the database
+            </summary>
+            <returns>list of orders.</returns>
+        </member>
+    </members>
+</doc>

@@ -61,19 +61,19 @@ namespace WebUI.Controllers
         // GET: StoreController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(new StoreVM(_bl.GetStoreById(id)));
+            return View(_bl.GetStoreById(id));
         }
 
         // POST: StoreController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, StoreVM store)
+        public ActionResult Edit(int id, StoreFront store)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _bl.UpdateStore(store.ToModel());
+                    _bl.UpdateStore(store);
                     return RedirectToAction(nameof(Index));
 
                 }
@@ -106,6 +106,21 @@ namespace WebUI.Controllers
             {
                 return View();
             }
+        }
+        [HttpGet("LocationOrders")]
+        public ActionResult LocationOrders(int id)
+        {
+            List<Order> orders = _bl.GetAllOrders();
+            List<Order> orderByLocations = new List<Order>();
+            foreach(var order in orders)
+            {
+                if(order.StoreFrontId == id)
+                {
+                    orderByLocations.Add(order);
+                }
+            }
+
+            return View(orderByLocations);
         }
     }
 }

@@ -51,5 +51,77 @@ namespace Tests
             //Lastly, make sure there's two of them
             Assert.Equal(2, model.Count());
         }
+
+        [Fact]
+        public void CustomerControllerIndexShouldReturnListOfCustomers()
+        {
+            var mockBL = new Mock<IBL>();
+            mockBL.Setup(x => x.GetAllCustomers()).Returns(
+                new List<Customer>()
+                {
+                    new Customer()
+                    {
+                        Id = 1,
+                        Name = "Tenzin",
+                        Address = "123 City",
+                        Email = "ten@gmail.com"
+                    },
+                    new Customer()
+                    {
+                        Id = 2,
+                        Name = "Woesel",
+                        Address = "123 State",
+                        Email = "hey@yahoo.com"
+                    }
+                });
+            var controller = new CustomerController(mockBL.Object);
+
+            //ACT
+            var result = controller.Index();
+
+            //ASSERT
+            //First, make sure we are getting the right type of result obj
+            var viewResult = Assert.IsType<ViewResult>(result);
+            //Next, we want to make sure, that in this view result, the model we have for it 
+            //is list of StoreVM
+            var model = Assert.IsAssignableFrom<IEnumerable<Customer>>(viewResult.ViewData.Model);
+            //Lastly, make sure there's two of them
+            Assert.Equal(2, model.Count());
+        }
+
+        [Fact]
+        public void ProductControllerIndexShouldReturnAllProducts()
+        {
+            var mockBL = new Mock<IBL>();
+            mockBL.Setup(x => x.GetAllProducts()).Returns(
+                new List<Product>()
+                {
+                    new Product()
+                    {
+                        Id = 1,
+                        Name = "Chair",
+                        Description = "Best",
+                        Price = 120
+                    },
+                    new Product()
+                    {
+                        Id = 2,
+                        Name = "Glasses",
+                        Description = "UV light protection",
+                        Price = 100
+                    }
+                });
+            var controller = new ProductController(mockBL.Object);
+
+            //ACT
+            var result = controller.Index();
+
+            //ASSERT
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<IEnumerable<Product>>(viewResult.ViewData.Model);
+            Assert.Equal(2, model.Count());
+        }
+        
     }
+
 }

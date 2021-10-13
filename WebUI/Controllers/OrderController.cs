@@ -25,6 +25,13 @@ namespace WebUI.Controllers
             List<Order> allOrders = _bl.GetAllOrders();
             return View(allOrders);
         }
+        [HttpGet("OrderByLatests")]
+        public ActionResult OrderByLatests()
+        {
+            List<Order> allOrders = _bl.GetAllOrders();
+            allOrders = allOrders.OrderByDescending(o => o.OrderDate).ToList();
+            return View(allOrders);
+        }
 
         // GET: OrderController/Details/5
         public ActionResult Details(int id)
@@ -33,18 +40,18 @@ namespace WebUI.Controllers
         }
 
         // GET: OrderController/Create
-        public ActionResult Create(int storeId, int customerId)
+        public ActionResult Create(int storeId)
         {
             IEnumerable<Inventory> inventoryByStore = _bl.GetInventoriesByStoreId(storeId);
             ViewBag.Inventories = inventoryByStore;
-            
+
             return View();
         }
 
         // POST: OrderController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Order  order)
+        public ActionResult Create(Order order)
         {
             try
             {

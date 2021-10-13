@@ -61,17 +61,22 @@ namespace WebUI.Controllers
         // GET: ProductController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(_bl.GetInventoryById(id));
         }
 
         // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Product product)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if(ModelState.IsValid)
+                {
+                    _bl.UpdateProduct(product);
+                    return Redirect("Index");
+                }
+                return RedirectToAction(nameof(Edit));
             }
             catch
             {

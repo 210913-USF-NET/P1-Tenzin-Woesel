@@ -40,6 +40,7 @@ namespace WebUI.Controllers
         }
 
         // GET: InventoryController/Details/5
+        [HttpGet("Details")]
         public ActionResult Details(int id)
         {
             Inventory inventoryDetails = _bl.GetInventoryById(id);
@@ -55,6 +56,7 @@ namespace WebUI.Controllers
         }
 
         // GET: InventoryController/Create
+        [HttpGet]
         public ActionResult Create(string storeId)
         {
             int id = int.Parse(storeId);
@@ -89,9 +91,9 @@ namespace WebUI.Controllers
         }
 
         // GET: InventoryController/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-
             return View(_bl.GetInventoryById(id));
         }
 
@@ -105,7 +107,7 @@ namespace WebUI.Controllers
                 if (ModelState.IsValid)
                 {
                     _bl.UpdateInventory(inventory);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index", "Store");
                 }
                 return RedirectToAction(nameof(Edit));
             }
@@ -116,6 +118,7 @@ namespace WebUI.Controllers
         }
 
         // GET: InventoryController/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             return View();

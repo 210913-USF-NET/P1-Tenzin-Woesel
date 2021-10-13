@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StoreBL</name>
+    </assembly>
+    <members>
+        <member name="M:StoreBL.IBL.GetAllCustomers">
+            <summary>
+            Gets all customer from the database.
+            </summary>
+            <returns>list of all customers.</returns>
+        </member>
+        <member name="M:StoreBL.IBL.AddCustomer(Models.Customer)">
+            <summary>
+             Adds Customer to the database.
+            </summary>
+            <param name="customer"> customer to be added</param>
+            <returns>added customer</returns>
+        </member>
+        <member name="M:StoreBL.IBL.AddStore(Models.StoreFront)">
+            <summary>
+            Adds a store to the database.
+            </summary>
+            <param name="storeFront">Store</param>
+            <returns>added store</returns>
+        </member>
+        <member name="M:StoreBL.IBL.AddOrder(Models.Order)">
+            <summary>
+            Adds order to the database.
+            </summary>
+            <param name="order">order</param>
+            <returns>added order</returns>
+        </member>
+        <member name="M:StoreBL.IBL.AddProduct(Models.Product)">
+            <summary>
+            Adds a product to the database.
+            </summary>
+            <param name="product">poduct</param>
+            <returns>addedProduct</returns>
+        </member>
+        <member name="M:StoreBL.IBL.AddLineItem(Models.LineItems)">
+            <summary>
+            Adds lineitems to the database.
+            </summary>
+            <param name="lineItems">lineitems</param>
+            <returns>added lineitem</returns>
+        </member>
+        <member name="M:StoreBL.IBL.AddInventory(Models.Inventory)">
+            <summary>
+            Adds inventory to database.
+            </summary>
+            <param name="inventory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StoreBL.IBL.GetCustomer(System.String)">
+            <summary>
+            Gets a customer by their name.
+            </summary>
+            <param name="name">customer</param>
+            <returns>customer</returns>
+        </member>
+        <member name="M:StoreBL.IBL.GetProductById(System.Int32)">
+            <summary>
+            Gets a product by their id from the database.
+            </summary>
+            <param name="productId">int</param>
+            <returns>A product.</returns>
+        </member>
+        <member name="M:StoreBL.IBL.GetAllProducts">
+            <summary>
+            Gets all products from the database.
+            </summary>
+            <returns>list of all products</returns>
+        </member>
+        <member name="M:StoreBL.IBL.GetAllOrders">
+            <summary>
+            Gets all orders from the database
+            </summary>
+            <returns>list of orders.</returns>
+        </member>
+    </members>
+</doc>

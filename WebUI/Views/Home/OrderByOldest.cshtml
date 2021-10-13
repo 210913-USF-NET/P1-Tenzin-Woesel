@@ -1,11 +1,10 @@
-﻿@model Models.Customer;
+﻿@model IEnumerable<Models.Order>
 
 @{
-    ViewData["Title"] = "Profile Menu";
+    ViewData["Title"] = "OrderByOldest";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Welcome to you profile @Html.DisplayFor(model => model.Name) </p>
+<h1>Order By Oldest</h1>
 
 <table class="table">
     <thead>
@@ -20,7 +19,7 @@
     </thead>
     <tbody>
 
-        @foreach (var order in Model.Orders)
+        @foreach (var order in Model)
         {
             <tr>
                 <td>
@@ -35,6 +34,5 @@
         }
     </tbody>
 </table>
-<a asp-action="OrderByLatest">Sort Order by Latest Date</a>
-<a asp-action="OrderByOldest">Sort Order by Oldest Date</a>
+
 
